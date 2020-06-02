@@ -4,9 +4,9 @@
 
 #include"base/header.h"
 #include"base/vector3.h"
-#include"base/ray.h"
-#include"base/union.h"
-#include"base/IntersectResult.h"
+#include"ray/ray.h"
+#include"geometry/union.h"
+#include"ray/IntersectResult.h"
 namespace rt
 {
 
@@ -20,6 +20,8 @@ namespace rt
 
 		float SqrRadius()const;	//半径平方
 		IntersectResult intersect(Ray3& _ray);	//光线相交
+		void move_location(const Vector3& vec);	//变换球体位置
+		void turn_location(const float& pitch, const float& yaw);	//几何体绕中心点旋转
 		~Sphere();
 	private:
 		Vector3 center;	//球体中心

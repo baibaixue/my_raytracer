@@ -14,7 +14,7 @@ namespace rt
 		,d(_plane.d)
 	{}
 
-	IntersectResult Plane::intersect(Ray3& _ray)
+	IntersectResult Plane::intersect(Ray3& _ray)	//判断光线和平面是否有交点
 	{
 		float a = _ray.direction.Dot(normal);
 		if (a >= 0)

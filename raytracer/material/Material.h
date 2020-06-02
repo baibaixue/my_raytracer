@@ -4,7 +4,7 @@
 #include "base/mathf.h"
 #include "base/vector3.h"
 #include "base/color.h"
-#include "base/ray.h"
+#include "ray/ray.h"
 namespace rt
 {
 

@@ -3,9 +3,9 @@
 #include"base/header.h"
 #include"base/vector3.h"
 #include"base/mathf.h"
-#include"base/sphere.h"
-#include"base/union.h"
-#include"base/IntersectResult.h"
+#include"geometry/sphere.h"
+#include"geometry/union.h"
+#include"ray/IntersectResult.h"
 namespace rt
 {
 	class Plane:public Generation	//几何体平面
@@ -16,6 +16,8 @@ namespace rt
 		Plane(const Plane& _plane);
 
 		IntersectResult intersect(Ray3& _ray);
+		void move_location(const Vector3& vec);
+		void turn_location(const float& pitch, const float& yaw);
 		~Plane();
 	private:
 		Vector3 normal;	//法向量

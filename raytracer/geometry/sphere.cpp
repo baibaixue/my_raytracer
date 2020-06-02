@@ -1,4 +1,4 @@
-#include"base/sphere.h"
+#include"geometry/sphere.h"
 
 namespace rt
 {
@@ -42,5 +42,28 @@ namespace rt
 		}
 		return IntersectResult::noHit();
 	}
+	void Sphere::move_location(const Vector3& vec)
+	{
+		center = center.Add(vec);
+		return ;
+	}
+
+	void Sphere::turn_location(const float& pitch, const float& yaw)
+	{	
+		float x = center.x;
+		float y = center.y;
+		float z = center.z;
+		center.x = x * rt::Mathf::Cos(pitch * rt::Mathf::deg2rad) - z * rt::Mathf::Sin(pitch * rt::Mathf::deg2rad);
+		center.z = x * rt::Mathf::Sin(pitch * rt::Mathf::deg2rad) + z * rt::Mathf::Cos(pitch * rt::Mathf::deg2rad);
+		center.y = y;
+		x = center.x;
+		y = center.y;
+		z = center.z;
+		center.y = y * rt::Mathf::Cos(yaw * rt::Mathf::deg2rad) - z * rt::Mathf::Sin(yaw * rt::Mathf::deg2rad);
+		center.z = y * rt::Mathf::Sin(yaw * rt::Mathf::deg2rad) + z * rt::Mathf::Cos(yaw * rt::Mathf::deg2rad);
+		center.x = x;
+		return;
+	}
+
 	Sphere::~Sphere() {};
 }

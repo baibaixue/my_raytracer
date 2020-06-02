@@ -2,9 +2,9 @@
 #ifndef _RAYTRACER_CAMERA_H_
 #define _RAYTRACER_CAMERA_H_
 
-#include"header.h"
-#include"vector3.h"
-#include"ray.h"
+#include"base/header.h"
+#include"base/vector3.h"
+#include"ray/ray.h"
 
 namespace rt
 {
@@ -27,6 +27,8 @@ namespace rt
 		virtual void Initialize();	//相机初始化
 		virtual const Ray3 GenerateRay(float x, float y)const;	//生成光线
 		Vector3& getEye();	//返回相机视点
+		Vector3& getFront();	
+		Vector3& getUp();
 		float fov = 90.f;	//代表水平和垂直方向的视野角度
 	private:
 		Vector3 eye = Vector3::zero;	//视点，默认为0

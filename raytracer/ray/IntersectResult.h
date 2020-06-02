@@ -2,7 +2,7 @@
 #define _RAYTRACER_INTERSECTRESULT_H_
 #include"base/vector3.h"
 #include"base/header.h"
-#include"base/Material.h"
+#include"material\Material.h"
 namespace rt
 {
 	class IntersectResult	//光线和物体相交的类

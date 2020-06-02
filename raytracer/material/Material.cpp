@@ -1,4 +1,4 @@
-#include "base/Material.h"
+#include "Material.h"
 #include "base/mathf.h"
 namespace rt
 {
@@ -23,7 +23,7 @@ namespace rt
 	
 	Color CheckerMaterial::prototype(Ray3& _ray, Vector3& _position, Vector3& _normal)//格子材质，返回黑色和白色
 	{
-		return Mathf::Abs((int)(Mathf::Floor(_position.x * scale) + Mathf::Floor(_position.z * scale))%2) < 1 ? Color::black : Color::white;
+		return Mathf::Abs((int)(Mathf::Floor(_position.x  * scale) + Mathf::Floor(_position.z * scale))%2) < 1 ? Color::black : Color::white;
 	}
 	CheckerMaterial::~CheckerMaterial() {};
 

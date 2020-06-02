@@ -1,5 +1,5 @@
 #include"camer.h"
-#include"mathf.h"
+#include"base\mathf.h"
 
 
 namespace rt
@@ -31,5 +31,13 @@ namespace rt
 		return eye;
 	}
 
+	Vector3& PerspectiveCamera::getFront()
+	{
+		return front;
+	}
+	Vector3& PerspectiveCamera::getUp()
+	{
+		return refUp;
+	}
 }
 

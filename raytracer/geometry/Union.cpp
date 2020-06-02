@@ -1,4 +1,4 @@
-#include"base/Union.h"
+#include"geometry/Union.h"
 
 namespace rt
 {
@@ -27,6 +27,22 @@ namespace rt
 	void Union::Add(Generation* _generation)
 	{
 		generation.push_back(_generation);
+	}
+
+	void Union::move_location(const Vector3& vec)
+	{
+		for (unsigned int i = 0; i < generation.size(); i++) {
+			generation[i]->move_location(vec);
+		}
+		return;
+	}
+
+	void Union::turn_location(const float& xoffset, const float& yoffset)
+	{
+		for (unsigned int i = 0; i < generation.size(); i++) {
+			generation[i]->turn_location(xoffset,yoffset);
+		}
+		return;
 	}
 
 	Color Union::getcolor(Union generation,Ray3& ray, float maxReflect)	//光线相交几何体颜色,maxReflect:最大反射次数

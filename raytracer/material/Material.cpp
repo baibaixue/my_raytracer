@@ -10,7 +10,7 @@ namespace rt
 
 	Color Material::prototype(Ray3& _ray, Vector3& _position, Vector3& _normal) 
 	{
-		return Color::white;
+		return Color::black;
 	};
 
 	Material::~Material() {};
@@ -49,5 +49,31 @@ namespace rt
 	}
 
 	PhongMaterial::~PhongMaterial() {};
+
+	ColorMaterial::ColorMaterial(const Color& _color,float _reflectivenesss)
+		:color(_color)
+		, Material(_reflectivenesss)
+	{
+	}
+
+	Color ColorMaterial::prototype(Ray3& _ray, Vector3& _position, Vector3& _normal)
+	{
+		
+		long maxDepth = 30;	
+		float dD = 255.0f / maxDepth;
+		//printf("dD:%lf\n", dD);
+
+		float d = Mathf::Sqrt(Mathf::Pow((_ray.origin.x - _position.x), 2.f) + Mathf::Pow((_ray.origin.y - _position.y), 2.f) + Mathf::Pow((_ray.origin.z - _position.z), 2.f));
+		//printf("d:%lf\n", d);
+		float t = Mathf::Min(Mathf::Abs(d*dD), 255.f);
+		//printf("t:%lf\n", t);
+		float depth = (float)(255.f - t);
+		//printf("depth:%lf\n", depth);
+		Color rescolor = Color32(1.f, color.r*(_normal.x*10 + depth), color.g*(_normal.y*10 + depth), color.b*(_normal.z*10 + depth));
+		//printf("r:%lf g:%lf b:%lf\n", rescolor.r, rescolor.g, rescolor.b);
+		return rescolor;
+	}
+
+	ColorMaterial::~ColorMaterial(){}
 
 }

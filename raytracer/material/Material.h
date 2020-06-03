@@ -17,6 +17,18 @@ namespace rt
 		float reflectiveness;	//材质反射度
 		~Material();
 	};
+
+	struct ColorMaterial :public Material	//颜色加深度渲染
+	{
+	public:
+		ColorMaterial(const Color& _color,float _reflectiveness);
+		Color prototype(Ray3& _ray, Vector3& _position, Vector3& _normal);
+		~ColorMaterial();
+	private:
+		Color color;
+
+	};
+
 	struct CheckerMaterial :public Material//格子材质
 	{
 	public:
@@ -26,7 +38,6 @@ namespace rt
 	private:
 		float scale;//一坐标单位有多少格子
 	};
-
 
 	struct PhongMaterial :public Material//Phong高光材质 光照材质
 	{
@@ -40,7 +51,7 @@ namespace rt
 		~PhongMaterial();
 
 	private:
-		Color diffuse;//漫反射
+		Color diffuse;//物体颜色，漫反射
 		Color specular;//镜反射
 		float shininess;//shininess 光线
 		

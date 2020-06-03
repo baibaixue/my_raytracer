@@ -41,7 +41,6 @@ namespace rt
 
 	void Plane::turn_location(const float& pitch, const float& yaw)
 	{
-		printf("1\n");
 		float x = normal.x;
 		float y = normal.y;
 		float z = normal.z;

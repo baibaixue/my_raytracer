@@ -11,7 +11,7 @@ namespace rt
 	public:
 		Generation()	
 		{
-			material = NULL;
+			material = new Material(0.f);
 		};
 		virtual IntersectResult intersect(Ray3& _ray)	//初始化继承函数，几何体未与光线相交
 		{

@@ -1,5 +1,6 @@
 #include"geometry/Union.h"
 
+
 namespace rt
 {
 	Union::Union(std::vector<rt::Generation*> generations)
@@ -52,17 +53,21 @@ namespace rt
 		{
 			float reflectiveness = result.material->reflectiveness;	//反射度
 			//printf("%lf\n", reflectiveness);
-			rt::Color color = result.material->prototype(ray, result.position, result.normal);	//材质反射情况
-			color = color.Multiply(1.f- reflectiveness);	//光线衰减
-
+			rt::Color color = rt::Color::black;
+			rt::Color material_color = result.material->prototype(ray, result.position, result.normal);	//材质反射情况
+			//printf("r:%lf g:%lf b:%lf\n", material_color.r, material_color.g, material_color.b);
+			material_color = material_color.Multiply(1.f- reflectiveness);	//光线衰减
+			
 			if (reflectiveness > 0 && maxReflect > 0)
 			{
 				Vector3 r = result.normal.Mulitiply(-2 * result.normal.Dot(ray.direction)).Add(ray.direction);	//反射光线
 				//Ray3 _ray = Ray3(result.position, r);
 				ray =Ray3(result.position, r);
 				Color reflectedColor = getcolor(generation, ray, maxReflect - 1);	//递归调用
-				color = color.Add(reflectedColor.Multiply(reflectiveness));	//反射情况叠加
+				material_color = material_color.Add(reflectedColor.Multiply(reflectiveness));	//反射情况叠加
 			}
+			color = color.Add(material_color);
+			//printf("r:%lf g:%lf b:%lf\n", color.r, color.g, color.b);
 			return color;
 
 		}

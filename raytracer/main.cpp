@@ -22,7 +22,8 @@ rt::PerspectiveCamera* camera =
 float lastx = 256, lasty = 256;	//鼠标初始位置
 bool firstMouse = true;	//是否第一次鼠标按下
 rt::Union generations;
-rt::DirectionalLight light(rt::Vector3(20, -20, 20), rt::Color::white);
+rt::DirectionalLight light1(rt::Vector3(20, -20, 20), rt::Color::blue);	//光源：平行光
+rt::PointLight light2(rt::Vector3(0, 10, 0), rt::Color::red);	//光源：点光源
 void get_generation() {	//初始化几何体
 	rt::Sphere* global1 = new rt::Sphere(rt::Vector3(-5, 7, -5), 6.f);	//新建球1
 	rt::Plane* plane = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(1, 1, 1), 1.0);	//新建平面
@@ -149,7 +150,7 @@ void MainLoop()	//循环主体
 			if (result.is_hit)
 			{
 			
-				result_color = result_color.Add(light.LightRender(generations, result));
+				result_color = result_color.Add(light2.LightRender(generations, result));
 				app->SetPixel(x, y, result_color);
 				
 			}	

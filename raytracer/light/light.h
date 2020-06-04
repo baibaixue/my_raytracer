@@ -68,6 +68,24 @@ namespace rt
 		Vector3 position;	//点光源位置
 		bool shadow;	//是否存在阴影
 	};
+
+	class SpotLight :public LightSample	//聚光灯
+	{
+	public:
+		SpotLight() = default;
+		SpotLight(const Vector3& _position, const Color& _intensity, const Vector3& _direction, float _theta, float _phi, float _falloff);
+		void initialize();
+		LightSample sample(Union& _generations, const Vector3& _position);
+		Color LightRender(Union& _generations, IntersectResult& _res);
+	private:
+		Color intensity;	//光源强度
+		Vector3 position;	//聚光灯中心位置
+		Vector3 direction;	//聚光灯方向
+		float theta;	//内圆锥顶角角度
+		float phi;	//外圆锥顶角角度
+		float falloff;	//衰减
+		bool shadow;	//阴影
+	};
 }
 
 

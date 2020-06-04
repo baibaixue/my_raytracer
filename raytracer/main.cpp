@@ -14,30 +14,45 @@
 rt::Application* app;
 
 void MainLoop();
+/*
 rt::PerspectiveCamera* camera = 
 						new rt::PerspectiveCamera
 						(rt::Vector3(0,10,20), rt::Vector3(0,-0.5,-1), rt::Vector3(0, 1, 0), 90);
-//新建相机
+//新建相机*/
+
+rt::PerspectiveCamera* camera =
+		new rt::PerspectiveCamera
+		(rt::Vector3(0, 10, 10), rt::Vector3(0, 0, -1), rt::Vector3(0, 1, 0), 90);
 
 float lastx = 256, lasty = 256;	//鼠标初始位置
 bool firstMouse = true;	//是否第一次鼠标按下
 rt::Union generations;
 rt::DirectionalLight light1(rt::Vector3(20, -20, 20), rt::Color::blue);	//光源：平行光
 rt::PointLight light2(rt::Vector3(0, 10, 0), rt::Color::red);	//光源：点光源
+rt::SpotLight light3(rt::Vector3(20, 20, 20), rt::Color::green.Add(rt::Color::red), rt::Vector3(-1, -1, -1), 10, 40, 0.5);
 void get_generation() {	//初始化几何体
-	rt::Sphere* global1 = new rt::Sphere(rt::Vector3(-5, 7, -5), 6.f);	//新建球1
-	rt::Plane* plane = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(1, 1, 1), 1.0);	//新建平面
-	rt::Sphere* global2 = new rt::Sphere(rt::Vector3(10, 5, -5),4.f);	//新建球2
-	global1->material = new rt::PhongMaterial(rt::Color::red.Add(rt::Color::blue), rt::Color::white, 16.f, 0.25f);	//球1材质渲染
-	global2->material = new rt::PhongMaterial(rt::Color::green.Add(rt::Color::red), rt::Color::white,16.f, 0.25f);	//球2材质渲染
-	plane->material = new rt::CheckerMaterial(0.2, 0.5f);//平面格子材质
+	//rt::Sphere* global1 = new rt::Sphere(rt::Vector3(-5, 7, -5), 6.f);	//新建球1
+	//rt::Plane* plane = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(1, 1, 1), 1.0);	//新建平面
+	//rt::Sphere* global2 = new rt::Sphere(rt::Vector3(10, 5, -5),4.f);	//新建球2
+	//global1->material = new rt::PhongMaterial(rt::Color::red.Add(rt::Color::blue), rt::Color::white, 16.f, 0.25f);	//球1材质渲染
+	//global2->material = new rt::PhongMaterial(rt::Color::green.Add(rt::Color::red), rt::Color::white,16.f, 0.25f);	//球2材质渲染
+	//plane->material = new rt::CheckerMaterial(0.2, 0.5f);//平面格子材质
 	//global1->material = new rt::ColorMaterial(rt::Color::red,0.25f);
 	//global2->material = new rt::ColorMaterial(rt::Color::blue, 0.25f);
 	//plane->material = new rt::ColorMaterial(rt::Color::white, 0.25f);
 
-	generations.Add(global1);	//将几何体加入集合
-	generations.Add(global2);
-	generations.Add(plane);
+	//generations.Add(global1);	//将几何体加入集合
+	//generations.Add(global2);
+	//generations.Add(plane);
+	rt::Sphere* global = new rt::Sphere(rt::Vector3(0, 10, -10), 10);
+	rt::Plane* plane1 = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(0, 0, 0), 0);
+	rt::Plane* plane2 = new rt::Plane(rt::Vector3(0, 0, 1), rt::Vector3(0, 0, -50), -50);
+	rt::Plane* plane3 = new rt::Plane(rt::Vector3(1, 0, 0), rt::Vector3(-20, 0, 0), -20);
+	generations.Add(global);
+	generations.Add(plane1);
+	generations.Add(plane2);
+	generations.Add(plane3);
+
 }
 
 int main(int argc, char *argv[])	//主函数
@@ -150,7 +165,7 @@ void MainLoop()	//循环主体
 			if (result.is_hit)
 			{
 			
-				result_color = result_color.Add(light2.LightRender(generations, result));
+				result_color = result_color.Add(light3.LightRender(generations, result));
 				app->SetPixel(x, y, result_color);
 				
 			}	

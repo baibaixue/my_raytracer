@@ -25,15 +25,6 @@ namespace rt
 		static LightSample zero() {
 			return LightSample(Vector3::zero,Color::black);
 		}
-		/*
-		bool is_zero() {
-			if (L.x == 0.f && L.y == 0.f && L.z == 0.f && EL.a == 0.f && EL.b == 0.f && EL.g == 0.f) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}*/
 		virtual void initial() {};	//初始化
 		virtual LightSample sample(Union& generations, const Vector3& position) { return zero(); };	//阴影
 		virtual Color LightRender(Union& generations,IntersectResult& res) { return Color::black; };	//光照渲染
@@ -49,10 +40,10 @@ namespace rt
 		void initialize();
 		LightSample sample(Union& generations,const Vector3& position);	//阴影
 		Color LightRender(Union& generations, IntersectResult& res);	//光照渲染
-
+		bool shadow;	//是否存在阴影
 	private:
 		Vector3 direction;	//平行光方向
-		bool shadow;	//是否存在阴影
+		
 	};
 
 	class PointLight :public LightSample
@@ -63,10 +54,10 @@ namespace rt
 		void initialize();
 		LightSample sample(Union& generations, const Vector3& position);	//阴影
 		Color LightRender(Union& generations, IntersectResult& res);	//光照渲染
-
+		bool shadow;	//是否存在阴影
 	private:
 		Vector3 position;	//点光源位置
-		bool shadow;	//是否存在阴影
+		
 	};
 
 	class SpotLight :public LightSample	//聚光灯
@@ -77,6 +68,7 @@ namespace rt
 		void initialize();
 		LightSample sample(Union& _generations, const Vector3& _position);
 		Color LightRender(Union& _generations, IntersectResult& _res);
+		bool shadow;	//阴影
 	private:
 		Color intensity;	//光源强度
 		Vector3 position;	//聚光灯中心位置
@@ -84,7 +76,7 @@ namespace rt
 		float theta;	//内圆锥顶角角度
 		float phi;	//外圆锥顶角角度
 		float falloff;	//衰减
-		bool shadow;	//阴影
+		
 	};
 }
 

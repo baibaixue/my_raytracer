@@ -89,7 +89,7 @@ namespace rt
 			//printf("r:%lf g:%lf b:%lf\n", color.r, color.g, color.b);
 		}
 
-		return Color(color);
+		return Color(color.Multiply(2000));
 	}
 
 	SpotLight::SpotLight(const Vector3& _position, const Color& _intensity, const Vector3& _direction, float _theta, float _phi, float _falloff)
@@ -166,7 +166,7 @@ namespace rt
 			//printf("color.r:%lf color.g:%lf color.b:%lf\n", color.r, color.g, color.b);
 		}
 
-		return Color(color.Multiply(2000));
+		return Color(color.Multiply(1000));
 	}
 
 

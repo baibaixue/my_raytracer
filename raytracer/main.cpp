@@ -1,59 +1,27 @@
-#include "base/header.h"
-#include "app/application.h"
-#include "base/color.h"
-#include "base/mathf.h"
-#include "ray/ray.h"
-#include "base/vector3.h"
-#include "camer/camer.h"
-#include "geometry/sphere.h"
-#include "material/Material.h"
-#include "geometry/Union.h"
-#include "geometry/plane.h"
-#include "light/light.h"
+#include "initialize_scene.h"
 
 rt::Application* app;
 
 void MainLoop();
+void scrollfun(GLFWwindow* window, double x, double y);	//Êó±ê¹öÂÖÊµÏÖÀ­½üÀ­Ô¶
+void Course_Mouse_callback(GLFWwindow* window, double xpos, double ypos);	//Êó±ê»¥¶¯ÊµÏÖÎïÌåÐý×ª
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);	//·½Ïò¼üÊµÏÖ¾µÍ·ÒÆ¶¯
+
+//ÐÂ½¨Ïà»ú
 /*
 rt::PerspectiveCamera* camera = 
 						new rt::PerspectiveCamera
 						(rt::Vector3(0,10,20), rt::Vector3(0,-0.5,-1), rt::Vector3(0, 1, 0), 90);
-//ÐÂ½¨Ïà»ú*/
-
+*/
 rt::PerspectiveCamera* camera =
 		new rt::PerspectiveCamera
 		(rt::Vector3(0, 10, 10), rt::Vector3(0, 0, -1), rt::Vector3(0, 1, 0), 90);
 
+rt::Union generations;
+rt::LightUnion lights;
+
 float lastx = 256, lasty = 256;	//Êó±ê³õÊ¼Î»ÖÃ
 bool firstMouse = true;	//ÊÇ·ñµÚÒ»´ÎÊó±ê°´ÏÂ
-rt::Union generations;
-rt::DirectionalLight light1(rt::Vector3(20, -20, 20), rt::Color::blue);	//¹âÔ´£ºÆ½ÐÐ¹â
-rt::PointLight light2(rt::Vector3(0, 10, 0), rt::Color::red);	//¹âÔ´£ºµã¹âÔ´
-rt::SpotLight light3(rt::Vector3(20, 20, 20), rt::Color::green.Add(rt::Color::red), rt::Vector3(-1, -1, -1), 10, 40, 0.5);
-void get_generation() {	//³õÊ¼»¯¼¸ºÎÌå
-	//rt::Sphere* global1 = new rt::Sphere(rt::Vector3(-5, 7, -5), 6.f);	//ÐÂ½¨Çò1
-	//rt::Plane* plane = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(1, 1, 1), 1.0);	//ÐÂ½¨Æ½Ãæ
-	//rt::Sphere* global2 = new rt::Sphere(rt::Vector3(10, 5, -5),4.f);	//ÐÂ½¨Çò2
-	//global1->material = new rt::PhongMaterial(rt::Color::red.Add(rt::Color::blue), rt::Color::white, 16.f, 0.25f);	//Çò1²ÄÖÊäÖÈ¾
-	//global2->material = new rt::PhongMaterial(rt::Color::green.Add(rt::Color::red), rt::Color::white,16.f, 0.25f);	//Çò2²ÄÖÊäÖÈ¾
-	//plane->material = new rt::CheckerMaterial(0.2, 0.5f);//Æ½Ãæ¸ñ×Ó²ÄÖÊ
-	//global1->material = new rt::ColorMaterial(rt::Color::red,0.25f);
-	//global2->material = new rt::ColorMaterial(rt::Color::blue, 0.25f);
-	//plane->material = new rt::ColorMaterial(rt::Color::white, 0.25f);
-
-	//generations.Add(global1);	//½«¼¸ºÎÌå¼ÓÈë¼¯ºÏ
-	//generations.Add(global2);
-	//generations.Add(plane);
-	rt::Sphere* global = new rt::Sphere(rt::Vector3(0, 10, -10), 10);
-	rt::Plane* plane1 = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(0, 0, 0), 0);
-	rt::Plane* plane2 = new rt::Plane(rt::Vector3(0, 0, 1), rt::Vector3(0, 0, -50), -50);
-	rt::Plane* plane3 = new rt::Plane(rt::Vector3(1, 0, 0), rt::Vector3(-20, 0, 0), -20);
-	generations.Add(global);
-	generations.Add(plane1);
-	generations.Add(plane2);
-	generations.Add(plane3);
-
-}
 
 int main(int argc, char *argv[])	//Ö÷º¯Êý
 {
@@ -61,30 +29,68 @@ int main(int argc, char *argv[])	//Ö÷º¯Êý
 	
 	camera->Initialize();//Ïà»ú³õÊ¼»¯
 	app->CreateApplication("raytracer",450, 450);	//´°¿Ú±êÌâ¼°·Ö±æÂÊ
-	get_generation();
+	rt::Init::get_generations(generations);
+	//rt::Init::get_Directionlights(lights);
 	app->RunLoop(MainLoop);
 	
 	return 0;
 }
+
+
+void MainLoop()	//Ñ­»·Ö÷Ìå
+{
+	app->Clear(rt::Color32::black);	//´°¿ÚÇåÆÁ
+
+	int w = app->GetWidth();	//´°¿Ú¿í
+	int h = app->GetHeight();	//´°¿Ú¸ß
+
+	float dx = 1.f / w;
+	float dy = 1.f / h;
+
+	for (float y = 0.f; y < h; y+=1.f)	//¹âÕ¤É¨ÃèÌî³ä´°¿Ú
+	{
+		float sy = 1 - dy * y;
+		for (float x = 0.f; x < w; x+=1.f)
+		{
+			float sx = dx * x;
+			
+			rt::Ray3 ray = camera->GenerateRay(sx, sy);
+			rt::IntersectResult result = generations.intersect(ray);
+			
+			if (result.is_hit)
+			{
+				rt::Color result_color = rt::Color::black;
+				result_color = result_color.Add(generations.getcolor(generations, ray,0.2f));
+				result_color = result_color.Add(lights.LightRender(generations, result));
+				app->SetPixel(x, y, result_color);
+
+			}
+		}
+
+	}
+	
+	app->Submit();
+	glfwSetScrollCallback(app->Getwindow(), scrollfun);	//»Øµ÷º¯ÊýÊµÏÖÊó±ê¹öÂÖ»¥¶¯
+	glfwSetKeyCallback(app->Getwindow(), key_callback);	//»Øµ÷º¯ÊýÊµÏÖ·½Ïò¼ü¿ØÖÆÏà»úÒÆ¶¯
+	double xpos, ypos;	//Êó±êÍÏ×§ÊµÏÖÎïÌåÐý×ª
+	if (app->getMouse(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+		app->getCurPos(&xpos, &ypos);
+		Course_Mouse_callback(app->Getwindow(), xpos, ypos);
+	}
+	else if (app->getMouse(GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+		lastx = 256, lasty = 256;
+		firstMouse = true;
+	}
+
+
+}
+
 void scrollfun(GLFWwindow* window, double x, double y)	//¹öÂÖÊµÏÖÀ­½üÀ­Ô¶
 {
-	if (camera->fov>= 10.0f && camera->fov <= 150.0f)
-	{
-		camera->fov -= (float)y;
-	}
-	if (camera->fov <= 10.0f)
-	{
-		camera->fov = 10.0f;
-	}
-	if (camera->fov >= 150.0f)
-	{
-		camera->fov = 150.0f;
-	}
+	camera->getEye().z += (camera->getFront().z*y);
 	camera->Initialize();
 	return;
 }
-
-
 
 void Course_Mouse_callback(GLFWwindow* window,double xpos,double ypos)	//Êó±ê»¥¶¯ÊµÏÖÎïÌåÐý×ª
 {
@@ -113,13 +119,6 @@ void Course_Mouse_callback(GLFWwindow* window,double xpos,double ypos)	//Êó±ê»¥¶
 	generations.turn_location(pitch, yaw);
 
 }
-/*
-void Mouse_callback(GLFWwindow* window, int button, int action, int mods) {
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		glfwSetCursorPosCallback(app->Getwindow(), Course_Mouse_callback);
-	}
-}
-*/
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {	//·½Ïò¼üÊµÏÖÏà»úÒÆ¶¯
 	if (key == GLFW_KEY_UP && action == GLFW_REPEAT) {
 		camera->getEye() = (camera->getEye()).Add(rt::Vector3::up);
@@ -137,56 +136,5 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	camera->Initialize();
 }
 
-void MainLoop()	//Ñ­»·Ö÷Ìå
-{
-	app->Clear(rt::Color32::black);	//´°¿ÚÇåÆÁ
-
-	int w = app->GetWidth();	//´°¿Ú¿í
-	int h = app->GetHeight();	//´°¿Ú¸ß
-
-	long maxDepth = 30;
-	
-	float dx = 1.f / w;
-	float dy = 1.f / h;
-	float dD = 255.0f / maxDepth;
-
-	
-	for (int y = 0 ; y < h; ++y )	//¹âÕ¤É¨ÃèÌî³ä´°¿Ú
-	{
-		float sy = 1 - dy * y;
-		for (int x = 0 ; x < w ; ++x )
-		{
-			float sx = dx * x;
-			
-			rt::Ray3 ray = camera->GenerateRay((float)sx, (float)sy);
-			rt::IntersectResult result = generations.intersect(ray);
-			rt::Color result_color = generations.getcolor(generations,ray,1.f);
-			
-			if (result.is_hit)
-			{
-			
-				result_color = result_color.Add(light3.LightRender(generations, result));
-				app->SetPixel(x, y, result_color);
-				
-			}	
-		}
-		
-	}
-	app->Submit();
-	glfwSetScrollCallback(app->Getwindow(),scrollfun);	//»Øµ÷º¯ÊýÊµÏÖÊó±ê¹öÂÖ»¥¶¯
-	glfwSetKeyCallback(app->Getwindow(), key_callback);	//»Øµ÷º¯ÊýÊµÏÖ·½Ïò¼ü¿ØÖÆÏà»úÒÆ¶¯
-	double xpos, ypos;	//Êó±êÍÏ×§ÊµÏÖÎïÌåÐý×ª
-	if (app->getMouse(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-		//printf("1");
-		app->getCurPos(&xpos, &ypos);
-		Course_Mouse_callback(app->Getwindow(), xpos, ypos);
-	}
-	else if (app->getMouse(GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
-		lastx = 256, lasty = 256;
-		firstMouse = true;
-	}
-	
-	
-}
 
 

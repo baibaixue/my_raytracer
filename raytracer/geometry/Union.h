@@ -37,7 +37,6 @@ namespace rt
 		void Add(Generation* _generation);	//添加几何体
 		void move_location(const Vector3& vec);
 		void turn_location(const float& pitch, const float& yaw);
-		//bool delect(Generation& _generation);
 	};
 
 }

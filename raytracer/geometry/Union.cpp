@@ -10,19 +10,21 @@ namespace rt
 
 	IntersectResult Union::intersect(Ray3& _ray) 
 	{
+		//printf("x:%lf y:%lf z:%lf\n", _ray.origin.x, _ray.origin.y, _ray.origin.z);
 		float minDistance = Mathf::inifinity;	//最短距离无穷大
 		IntersectResult minresult = IntersectResult::noHit();	//初始化光线未接触几何体
 		for (int i = 0; i < generation.size(); i++)	
 		{
+			
 			IntersectResult result = generation[i]->intersect(_ray);
 			
 			if (result.is_hit && result.distance < minDistance)	//从所有几何体中找到和光线相交并距离最近的几何体
 			{
 				minDistance = result.distance;	//更新距离
 				minresult = result;	//更新光线相交情况
-				//objs_color = generation[i]->material->prototype(_ray, result.position, result.normal);	//更新材质
 			}
 		}
+		
 		return minresult;
 	}
 	void Union::Add(Generation* _generation)
@@ -55,7 +57,6 @@ namespace rt
 			//printf("%lf\n", reflectiveness);
 			rt::Color color = rt::Color::black;
 			rt::Color material_color = result.material->prototype(ray, result.position, result.normal);	//材质反射情况
-			//printf("r:%lf g:%lf b:%lf\n", material_color.r, material_color.g, material_color.b);
 			material_color = material_color.Multiply(1.f- reflectiveness);	//光线衰减
 			
 			if (reflectiveness > 0 && maxReflect > 0)
@@ -67,7 +68,7 @@ namespace rt
 				material_color = material_color.Add(reflectedColor.Multiply(reflectiveness));	//反射情况叠加
 			}
 			color = color.Add(material_color);
-			//printf("r:%lf g:%lf b:%lf\n", color.r, color.g, color.b);
+			
 			return color;
 
 		}

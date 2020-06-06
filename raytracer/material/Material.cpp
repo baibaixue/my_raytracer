@@ -43,6 +43,7 @@ namespace rt
 		float NdotH = _normal.Dot(H);
 		const Color diffuseTerm = diffuse.Multiply(Mathf::Max(NdotL, 0.f));
 		const Color specularTerm = specular.Multiply(Mathf::Pow(Mathf::Max(NdotH, 0.f), shininess));
+		//printf("r:%lf g:%lf b:%lf\n", diffuseTerm.r, diffuseTerm.g, diffuseTerm.b);
 		return lightcolor.Modulate(diffuseTerm.Add(specularTerm));
 		
 		//return diffuseTerm;

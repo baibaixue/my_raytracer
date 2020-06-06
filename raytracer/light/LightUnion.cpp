@@ -9,7 +9,7 @@ namespace rt {
 
 	Color LightUnion::LightRender(Union& _generations, IntersectResult& _res)
 	{
-		Color lightcolor = Color::black;
+		Color lightcolor = Color::black.Add(Color(0.f,0.2f,0.2f,0.2f));
 		for (int i = 0; i < lights.size(); i++) {
 			lightcolor = lightcolor.Add(lights[i]->LightRender(_generations, _res));
 		}

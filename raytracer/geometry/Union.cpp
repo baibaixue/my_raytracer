@@ -67,8 +67,9 @@ namespace rt
 				Color reflectedColor = getcolor(generation, ray, maxReflect - 1);	//递归调用
 				material_color = material_color.Add(reflectedColor.Multiply(reflectiveness));	//反射情况叠加
 			}
-			color = color.Add(material_color);
 			
+			color = color.Add(material_color);
+			//printf("r:%lf g:%lf b:%lf\n", color.r, color.g, color.b);
 			return color;
 
 		}

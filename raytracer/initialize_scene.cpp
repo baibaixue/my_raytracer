@@ -76,6 +76,7 @@ namespace rt {
 				_lights.Add(new PointLight(Vector3(x, 50.f, z), Color::white.Multiply(0.1f)));
 			}
 		}
+		
 
 		LightSample* fillLight = new DirectionalLight(Vector3(1.5, 1, 0.5), Color::blue.Multiply(0.25));
 		
@@ -83,10 +84,22 @@ namespace rt {
 	}
 	void Init::get_generations(Union& _generations)
 	{
+		/*
 		Generation* triangle = new Triangle(Vector3(0, 0, 0), Vector3(30, 0, 0), Vector3(0, 40, 0));
 		triangle->material = new rt::PhongMaterial(Color::red.Add(rt::Color::blue), Color::white, 16.f, 0.25f);
 		//triangle->material = new rt::ColorMaterial(Color::blue, 0.25f);
 		_generations.Add(triangle);
+		*/
+		Generation* tetradron = new Tetrahedron(Vector3(0, 0, 0), Vector3(15, 0, 0), Vector3(0, 20, 0), Vector3(0, 0, -10));
+		tetradron->material = new rt::PhongMaterial(Color::red.Add(rt::Color::blue), Color::white, 16.f, 0.25f);
+		
+		Plane* plane1 = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(0, 0, 0), 0);
+		Plane* plane2 = new rt::Plane(rt::Vector3(0, 0, 1), rt::Vector3(0, 0, -50), -50);
+		Plane* plane3 = new rt::Plane(rt::Vector3(1, 0, 0), rt::Vector3(-20, 0, 0), -20);
+		_generations.Add(tetradron);
+		_generations.Add(plane1);
+		_generations.Add(plane2);
+		_generations.Add(plane3);
 	}
 }
 

@@ -30,7 +30,7 @@ int main(int argc, char *argv[])	//主函数
 	camera->Initialize();//相机初始化
 	app->CreateApplication("raytracer",450, 450);	//窗口标题及分辨率
 	rt::Init::get_generations(generations);
-	//rt::Init::get_Directionlights(lights);
+	rt::Init::get_Pointlights(lights);
 	app->RunLoop(MainLoop);
 	
 	return 0;
@@ -56,12 +56,13 @@ void MainLoop()	//循环主体
 			
 			rt::Ray3 ray = camera->GenerateRay(sx, sy);
 			rt::IntersectResult result = generations.intersect(ray);
-			
+			rt::Color result_color = rt::Color::black;
+			result_color = result_color.Add(generations.getcolor(generations, ray,0.2f));
+			//printf("r:%lf g:%lf b:%lf\n", result_color.r, result_color.g, result_color.b);
+			result_color = result_color.Add(lights.LightRender(generations, result));
 			if (result.is_hit)
 			{
-				rt::Color result_color = rt::Color::black;
-				result_color = result_color.Add(generations.getcolor(generations, ray,0.2f));
-				result_color = result_color.Add(lights.LightRender(generations, result));
+				
 				app->SetPixel(x, y, result_color);
 
 			}

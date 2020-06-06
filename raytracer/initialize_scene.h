@@ -15,6 +15,7 @@
 #include "geometry/triangle.h"
 #include "light/light.h"
 #include "light/LightUnion.h"
+#include "geometry/tetrahedron.h"
 
 namespace rt 
 {

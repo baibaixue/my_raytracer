@@ -93,13 +93,13 @@ namespace rt {
 		Generation* tetradron = new Tetrahedron(Vector3(0, 0, 0), Vector3(15, 0, 0), Vector3(0, 20, 0), Vector3(0, 0, -10));
 		tetradron->material = new rt::PhongMaterial(Color::red.Add(rt::Color::blue), Color::white, 16.f, 0.25f);
 		
-		Plane* plane1 = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(0, 0, 0), 0);
-		Plane* plane2 = new rt::Plane(rt::Vector3(0, 0, 1), rt::Vector3(0, 0, -50), -50);
-		Plane* plane3 = new rt::Plane(rt::Vector3(1, 0, 0), rt::Vector3(-20, 0, 0), -20);
+		//Plane* plane1 = new rt::Plane(rt::Vector3(0, 1, 0), rt::Vector3(0, 0, 0), 0);
+		//Plane* plane2 = new rt::Plane(rt::Vector3(0, 0, 1), rt::Vector3(0, 0, -50), -50);
+		//Plane* plane3 = new rt::Plane(rt::Vector3(1, 0, 0), rt::Vector3(-20, 0, 0), -20);
 		_generations.Add(tetradron);
-		_generations.Add(plane1);
-		_generations.Add(plane2);
-		_generations.Add(plane3);
+		//_generations.Add(plane1);
+		//_generations.Add(plane2);
+		//_generations.Add(plane3);
 	}
 }
 

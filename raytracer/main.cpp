@@ -8,11 +8,6 @@ void Course_Mouse_callback(GLFWwindow* window, double xpos, double ypos);	//Êó±ê
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);	//·½Ïò¼üÊµÏÖ¾µÍ·ÒÆ¶¯
 
 //ÐÂ½¨Ïà»ú
-/*
-rt::PerspectiveCamera* camera = 
-						new rt::PerspectiveCamera
-						(rt::Vector3(0,10,20), rt::Vector3(0,-0.5,-1), rt::Vector3(0, 1, 0), 90);
-*/
 rt::PerspectiveCamera* camera =
 		new rt::PerspectiveCamera
 		(rt::Vector3(0, 10, 10), rt::Vector3(0, 0, -1), rt::Vector3(0, 1, 0), 90);
@@ -58,7 +53,7 @@ void MainLoop()	//Ñ­»·Ö÷Ìå
 			rt::IntersectResult result = generations.intersect(ray);
 			rt::Color result_color = rt::Color::black;
 			result_color = result_color.Add(rt::Render::getcolor(generations,lights, ray,3.f));
-			//printf("r:%lf g:%lf b:%lf\n", result_color.r, result_color.g, result_color.b);
+
 			if (result.is_hit)
 			{
 				
@@ -111,13 +106,10 @@ void Course_Mouse_callback(GLFWwindow* window,double xpos,double ypos)	//Êó±ê»¥¶
 
 	float pitch = rt::Mathf::Clamp(xoffset, -179.0f, 179.0f);
 	float yaw = rt::Mathf::Clamp(yoffset, -179.0f, 179.0f);
-	//printf("xpos:%lf ypos:%lf lastx:%lf lasty:%lf xoffset:%lf yoffset:%lf\n",xpos,ypos,lastx,lasty,xoffset,yoffset);
-	
 	lastx = xpos;
 	lasty = ypos;
 
 	generations.turn_location(pitch, yaw);
-
 }
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {	//·½Ïò¼üÊµÏÖÏà»úÒÆ¶¯
 	if (key == GLFW_KEY_UP && action == GLFW_REPEAT) {

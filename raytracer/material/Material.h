@@ -53,7 +53,7 @@ namespace rt
 	private:
 		Color diffuse;//物体颜色，漫反射
 		Color specular;//镜反射
-		float shininess;//shininess 光线
+		float shininess;//光滑度
 		
 	};
 }

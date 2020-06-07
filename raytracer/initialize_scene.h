@@ -35,7 +35,7 @@ namespace rt
 
 		static void get_Lights(LightUnion& _lights);	//初始化多种光源
 
-		static void get_generations(Union& _generations);
+		static void get_tetrahedron(Union& _generations);	//初始化四面体
 
 	};
 	

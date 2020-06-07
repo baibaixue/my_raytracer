@@ -26,7 +26,7 @@ namespace rt
 			return LightSample(Vector3::zero,Color::black);
 		}
 		virtual void initial() {};	//初始化
-		virtual LightSample sample(Union& generations, const Vector3& position) { return zero(); };	//阴影
+		virtual LightSample sample(Union& generations, const Vector3& position) { return zero(); };	//获取辐照度
 		virtual Color LightRender(Union& generations,IntersectResult& res) { return Color::black; };	//光照渲染
 		Vector3 L;	//光方向
 		Color EL;	//光辐射度
@@ -38,9 +38,9 @@ namespace rt
 		DirectionalLight() = default;
 		DirectionalLight(const Vector3& L, const Color& c);
 		void initialize();
-		LightSample sample(Union& generations,const Vector3& position);	//阴影
+		LightSample sample(Union& generations,const Vector3& position);	//获取辐照度
 		Color LightRender(Union& generations, IntersectResult& res);	//光照渲染
-		bool shadow;	//是否存在阴影
+		bool shadow;	//辐照度
 	private:
 		Vector3 direction;	//平行光方向
 		
@@ -52,9 +52,9 @@ namespace rt
 		PointLight() = default;
 		PointLight(const Vector3& L,const Color& c);
 		void initialize();
-		LightSample sample(Union& generations, const Vector3& position);	//阴影
+		LightSample sample(Union& generations, const Vector3& position);	//获取辐照度
 		Color LightRender(Union& generations, IntersectResult& res);	//光照渲染
-		bool shadow;	//是否存在阴影
+		bool shadow;	//阴影
 	private:
 		Vector3 position;	//点光源位置
 		

@@ -9,7 +9,7 @@ namespace rt
 		float y = 0.f;
 		float z = 0.f;
 
-		Vector3() = default;	//让编译器依然自动生成相应的默认构造函数
+		Vector3() = default;	//默认构造函数
 		Vector3(float _x, float _y, float _z);	//复制构造函数	
 		Vector3(const Vector3& v);	//复制构造函数
 
@@ -25,13 +25,13 @@ namespace rt
 		float Dot(const Vector3& v)const;	//向量点乘
 
 		static const Vector3 zero;	//零向量
-		static const Vector3 one;	//‘单位’向量
-		static const Vector3 front;	//向前‘单位’向量
-		static const Vector3 up;	//向上‘单位’向量
-		static const Vector3 down;	//向下‘单位’向量
-		static const Vector3 right;	//向右‘单位’向量
-		static const Vector3 left;	//向左‘单位’向量
-		static const Vector3 back;	//向后‘单位’向量
+		static const Vector3 one;	//向量（1，1，1）
+		static const Vector3 front;	//向前单位向量
+		static const Vector3 up;	//向上单位向量
+		static const Vector3 down;	//向下单位向量
+		static const Vector3 right;	//向右单位向量
+		static const Vector3 left;	//向左单位向量
+		static const Vector3 back;	//向后单位向量
 
 
 

@@ -33,7 +33,6 @@ namespace rt
 		Union(std::vector<rt::Generation*> generations);
 		std::vector<rt::Generation*> generation;	//几何体数组，存放所有几何体
 		IntersectResult intersect(Ray3& _ray);	//光线相交
-		Color getcolor(Union generations,Ray3& ray,float maxReflect);	//得到当前光线相交处的像素颜色
 		void Add(Generation* _generation);	//添加几何体
 		void move_location(const Vector3& vec);
 		void turn_location(const float& pitch, const float& yaw);

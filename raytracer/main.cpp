@@ -1,5 +1,5 @@
 #include "initialize_scene.h"
-
+#include "render/render.h"
 rt::Application* app;
 
 void MainLoop();
@@ -29,8 +29,8 @@ int main(int argc, char *argv[])	//÷˜∫Ø ˝
 	
 	camera->Initialize();//œ‡ª˙≥ı ºªØ
 	app->CreateApplication("raytracer",450, 450);	//¥∞ø⁄±ÍÃ‚º∞∑÷±Ê¬ 
-	rt::Init::get_generations(generations);
-	rt::Init::get_Pointlights(lights);
+	rt::Init::get_planes_global(generations);
+	rt::Init::get_Spotlights(lights);
 	app->RunLoop(MainLoop);
 	
 	return 0;
@@ -57,9 +57,8 @@ void MainLoop()	//—≠ª∑÷˜ÃÂ
 			rt::Ray3 ray = camera->GenerateRay(sx, sy);
 			rt::IntersectResult result = generations.intersect(ray);
 			rt::Color result_color = rt::Color::black;
-			result_color = result_color.Add(generations.getcolor(generations, ray,0.2f));
+			result_color = result_color.Add(rt::Render::getcolor(generations,lights, ray,3.f));
 			//printf("r:%lf g:%lf b:%lf\n", result_color.r, result_color.g, result_color.b);
-			result_color = result_color.Add(lights.LightRender(generations, result));
 			if (result.is_hit)
 			{
 				
@@ -106,7 +105,7 @@ void Course_Mouse_callback(GLFWwindow* window,double xpos,double ypos)	// Û±Íª•∂
 	float yoffset = ypos - lasty;	// ˙÷±∑ΩœÚŒª÷√±‰ªØ
 	
 	float xsensitivity = 0.3f;	//“∆∂Ø√Ù∏–∂»
-	float ysensitivity = 0.1f;
+	float ysensitivity = 0.3f;
 	xoffset *= xsensitivity;
 	yoffset *= ysensitivity;
 

@@ -43,11 +43,11 @@ namespace rt {
 		LightSample* light = new PointLight
 		(Vector3(30,40,20),Color::white);
 		LightSample* light1 = new SpotLight
-		(Vector3(0, 30, 10), Color::red, Vector3(0, -1, -1), 20, 30, 1);
+		(Vector3(0, 30, 10), Color::red, Vector3(0, -1, -1), 20, 90, 1);
 		LightSample* light2 = new SpotLight
-		(Vector3(6, 30, 20), Color::blue, Vector3(0, -1, -1), 20, 30, 1);
+		(Vector3(6, 30, 20), Color::blue, Vector3(0, -1, -1), 20, 90, 1);
 		LightSample* light3 = new SpotLight
-		(Vector3(-6, 30, 20), Color::green, Vector3(0, -1, -1), 20, 30, 1);
+		(Vector3(-6, 30, 20), Color::green, Vector3(0, -1, -1), 20, 90, 1);
 
 		_lights.Add(light);
 		_lights.Add(light1);
@@ -78,8 +78,7 @@ namespace rt {
 		}
 		
 
-		LightSample* fillLight = new DirectionalLight(Vector3(1.5, 1, 0.5), Color::blue.Multiply(0.25));
-		
+		LightSample* fillLight = new DirectionalLight(Vector3(1.5, 1, 0.5), Color::blue.Multiply(0.01));
 		_lights.Add(fillLight);
 	}
 	void Init::get_generations(Union& _generations)

@@ -4,7 +4,7 @@
 
 #include "base/header.h"
 #include "base/color.h"
-#include "camer/camer.h"
+#include "camera/camera.h"
 
 namespace rt
 {

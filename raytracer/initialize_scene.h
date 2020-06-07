@@ -7,7 +7,7 @@
 #include "base/mathf.h"
 #include "ray/ray.h"
 #include "base/vector3.h"
-#include "camer/camer.h"
+#include "camera/camera.h"
 #include "geometry/sphere.h"
 #include "material/Material.h"
 #include "geometry/Union.h"

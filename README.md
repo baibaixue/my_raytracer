@@ -51,3 +51,35 @@ C++实现的光线追踪入门
 > ### 8.其他
 > + Init : 初始化场景
 > + Render : 整体渲染
+
+## 结果测试
++ Plane 测试   
+
+![image](https://github.com/baibaixue/my_raytracer/blob/master/image/test_plane.png)     
++ Sphere 测试  
+
+![image](https://github.com/baibaixue/my_raytracer/blob/master/image/test_global.png)   
++ Tetrahedro 测试  
+
+![image](https://github.com/baibaixue/my_raytracer/blob/master/image/test_tetrahedron.png)  
++ Material 测试  
+
+![image](https://github.com/baibaixue/my_raytracer/blob/master/image/test_MaterialRender.png)  
++ DirectionLight 测试  
+
+![image](https://github.com/baibaixue/my_raytracer/blob/master/image/test_DirectionLight.png)  
++ PointLight 测试  
+
+![image](https://github.com/baibaixue/my_raytracer/blob/master/image/test_PointLight.png)  
++ SpotLight 测试  
+
+![image](https://github.com/baibaixue/my_raytracer/blob/master/image/test_SpotLight.png)  
+
+## 参考文献
++ GLFW官方文档  
+<https://www.glfw.org/faq.html>  
+<https://www.glfw.org/docs/latest/>  
++ 用JavaScript玩转计算机图形学（一）光线追踪入门：  
+<https://www.cnblogs.com/miloyip/archive/2010/03/29/1698953.html>  
++ 用JavaScript玩转计算机图形学（二）基本光源：  
+<https://www.cnblogs.com/miloyip/archive/2010/04/02/1702768.html>

@@ -1,4 +1,4 @@
-# my_raytracer
+# Raytracer
 C++实现的光线追踪入门
 
 ## 系统结构图
